@@ -1,7 +1,7 @@
-package com.search.project.service;
+package com.google.service.service;
 
-import com.search.project.dto.GoogleSearchResponseListDto;
-import com.search.project.dto.SearchResultsDto;
+import com.google.service.dto.GoogleSearchResponseListDto;
+import com.google.service.dto.SearchResultsDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
