@@ -1,7 +1,7 @@
-package com.search.project.controller;
+package com.google.service.controller;
 
-import com.search.project.dto.SearchResultsDto;
-import com.search.project.service.GoogleSearchService;
+import com.google.service.dto.SearchResultsDto;
+import com.google.service.service.GoogleSearchService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

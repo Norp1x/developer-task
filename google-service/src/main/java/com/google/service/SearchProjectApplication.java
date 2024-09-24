@@ -1,4 +1,4 @@
-package com.search.project;
+package com.google.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

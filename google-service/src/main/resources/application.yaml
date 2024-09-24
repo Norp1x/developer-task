@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: 'google-service'
+
+server:
+  port: 8081
+
+  ## Google API
+google:
+  api:
+    key:  *******
+    cx: '06b2d49e4c504458e'

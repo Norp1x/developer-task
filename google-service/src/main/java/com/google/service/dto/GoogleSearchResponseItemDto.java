@@ -1,4 +1,4 @@
-package com.search.project.dto;
+package com.google.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
