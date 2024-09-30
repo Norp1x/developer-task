@@ -16,7 +16,6 @@ public class SearchServiceImpl implements SearchService {
 
     private static final String URL = "http://localhost:8081/api/search?query=";
 
-
     private final RestTemplate restTemplate;
 
     @Override

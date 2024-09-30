@@ -41,6 +41,8 @@
         <lombok.version>1.18.34</lombok.version>
         <spring-boot-starter-test.version>3.3.3</spring-boot-starter-test.version>
         <httpclient5.version>5.4</httpclient5.version>
+        <spring-boot-starter-log4j2.version>3.3.4</spring-boot-starter-log4j2.version>
+        <slf4j-api.version>2.0.16</slf4j-api.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -92,9 +94,15 @@
             </dependency>
 
             <dependency>
-                <groupId>org.apache.httpcomponents.client5</groupId>
-                <artifactId>httpclient5</artifactId>
-                <version>${httpclient5.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-log4j2</artifactId>
+                <version>${spring-boot-starter-log4j2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
             </dependency>
 
 
