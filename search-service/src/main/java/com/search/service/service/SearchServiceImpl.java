@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
 
-    private static final String URL = "http://localhost:8081/api/search?query=";
+    private static final String URL = "http://google-service:8081/api/search?query=";
 
     private final RestTemplate restTemplate;
 
