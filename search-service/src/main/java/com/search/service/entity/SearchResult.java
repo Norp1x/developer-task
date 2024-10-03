@@ -3,11 +3,16 @@ package com.search.service.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+
+
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "search_results")
-public class SearchResults {
+public class SearchResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +26,9 @@ public class SearchResults {
     @NonNull
     @Column(name = "link")
     private String link;
+
+    @NonNull
+    @Column(name = "date")
+    private Date date;
 
 }

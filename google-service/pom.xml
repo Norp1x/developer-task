@@ -15,14 +15,12 @@
 
     <properties>
         <java.version>21</java.version>
-        <camel-spring-boot-starter.version>4.6.0</camel-spring-boot-starter.version>
+
         <spring-boot-starter-actuator.version>3.2.10</spring-boot-starter-actuator.version>
-        <spring-boot-starter-quartz.version>3.2.10</spring-boot-starter-quartz.version>
         <spring-boot-starter-web.version>3.3.3</spring-boot-starter-web.version>
         <spring-boot-devtools.version>3.3.3</spring-boot-devtools.version>
         <lombok.version>1.18.34</lombok.version>
         <spring-boot-starter-test.version>3.3.3</spring-boot-starter-test.version>
-        <httpclient5.version>5.4</httpclient5.version>
         <spring-boot-starter-log4j2.version>3.3.4</spring-boot-starter-log4j2.version>
         <slf4j-api.version>2.0.16</slf4j-api.version>
     </properties>
@@ -37,20 +35,8 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-            <version>${spring-boot-starter-quartz.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring-boot-starter-web.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-spring-boot-starter</artifactId>
-            <version>${camel-spring-boot-starter.version}</version>
         </dependency>
 
         <dependency>
