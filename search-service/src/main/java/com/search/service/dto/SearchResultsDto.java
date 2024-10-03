@@ -1,14 +1,12 @@
 package com.search.service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class SearchResultsDto {
 
-    private String title;
-    private String link;
+    public String title;
+    public String link;
 }

@@ -21,7 +21,7 @@ public class GoogleSearchServiceImpl implements GoogleSearchService {
     private static final String QUERY_PARAM_STRING = "&q=";
     private static final String GOOGLE_SEARCH_URL = "https://www.googleapis.com/customsearch/v1";
 
-    private final RestTemplate restTemplate;
+    final RestTemplate restTemplate;
 
     @Override
     public GoogleSearchResponseListDto search(String query) {

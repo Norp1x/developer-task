@@ -2,5 +2,15 @@ spring:
   application:
     name: 'search-service'
 
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:search-app
+    username: sa
+    password:
+
+
 server:
   port: 8080

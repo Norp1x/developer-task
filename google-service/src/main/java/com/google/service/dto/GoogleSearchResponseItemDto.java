@@ -1,10 +1,8 @@
 package com.google.service.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class GoogleSearchResponseItemDto {
 
     private String title;
