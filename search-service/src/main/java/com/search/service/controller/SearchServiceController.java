@@ -1,12 +1,11 @@
 package com.search.service.controller;
 
 import com.search.service.dto.SearchResultsDto;
-import com.search.service.service.SearchServiceImpl;
+import com.search.service.service.SearchService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,10 +14,16 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchServiceController {
 
-    private SearchServiceImpl searchServiceImpl;
+    SearchService searchService;
 
     @GetMapping
-    public List<SearchResultsDto> search(@RequestParam String query) {
-        return searchServiceImpl.search(query);
+    public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) {
+        List<SearchResultsDto> responseBody = searchService.search(query);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public List<SearchResultsDto> saveInDatabase() {
+        return searchService.saveInDatabase();
     }
 }

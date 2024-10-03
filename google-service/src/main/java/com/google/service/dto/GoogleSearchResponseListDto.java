@@ -1,13 +1,11 @@
 package com.google.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 public class GoogleSearchResponseListDto {
 
     @JsonProperty(value = "items")
