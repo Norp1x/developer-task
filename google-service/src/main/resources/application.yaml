@@ -10,3 +10,11 @@ google:
   api:
     key:  *******
     cx: '06b2d49e4c504458e'
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
