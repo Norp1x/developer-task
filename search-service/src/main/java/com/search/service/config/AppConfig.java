@@ -11,12 +11,14 @@ import java.time.temporal.ChronoUnit;
 @Configuration
 public class AppConfig {
 
-    private final Duration readTimeout = Duration.of(5, ChronoUnit.SECONDS);
+    private final Duration READ_TIMEOUT_IN_MINUTES = Duration.of(1, ChronoUnit.MINUTES);
+    private final Duration CONNECT_TIMEOUT_IN_SECONDS = Duration.of(30, ChronoUnit.SECONDS);
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
-                .setReadTimeout(readTimeout)
+                .setConnectTimeout(CONNECT_TIMEOUT_IN_SECONDS)
+                .setReadTimeout(READ_TIMEOUT_IN_MINUTES)
                 .build();
     }
 }
