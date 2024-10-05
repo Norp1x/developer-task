@@ -1,6 +1,7 @@
 package com.google.service.service;
 
 import com.google.service.dto.GoogleSearchResponseListDto;
+import com.google.service.exception.NoConnectionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class GoogleSearchServiceImpl implements GoogleSearchService {
     @Override
     public GoogleSearchResponseListDto search(String query) {
         String URL = GOOGLE_SEARCH_URL + KEY_PARAM_STRING + apiKey + CX_PARAM_STRING + cx + QUERY_PARAM_STRING;
-        return restTemplate.getForEntity(URL + query, GoogleSearchResponseListDto.class).getBody();
+
+        try {
+            return restTemplate.getForEntity(URL + query, GoogleSearchResponseListDto.class).getBody();
+        } catch (NoConnectionException noConnectionException) {
+            throw new NoConnectionException();
+        }
     }
 }

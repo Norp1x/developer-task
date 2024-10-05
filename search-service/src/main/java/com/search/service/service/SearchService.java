@@ -13,4 +13,6 @@ public interface SearchService {
     SearchResult getResultFromDatabase(Long id);
 
     List<SearchResult> getAllResultsFromDatabase();
+
+    void deleteByIdFromDatabase(Long id);
 }

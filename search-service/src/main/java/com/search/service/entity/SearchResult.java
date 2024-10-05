@@ -1,7 +1,11 @@
 package com.search.service.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
@@ -19,15 +23,14 @@ public class SearchResult {
     @Column(name = "id")
     private Long id;
 
-    @NonNull
+    @NotBlank(message = "Title cannot be blank")
     @Column(name = "title")
     private String title;
 
-    @NonNull
+    @NotBlank(message = "Link cannot be blank")
     @Column(name = "link")
     private String link;
 
-    @NonNull
     @Column(name = "date")
     private Date date;
 

@@ -3,6 +3,7 @@ package com.search.service.service;
 import com.search.service.dto.SearchResultsDto;
 import com.search.service.dto.SearchResultsListDto;
 import com.search.service.entity.SearchResult;
+import com.search.service.exception.NoSearchResultException;
 import com.search.service.mapper.SearchResultsDtoToSearchResultMapper;
 import com.search.service.repository.SearchRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,8 +49,9 @@ public class SearchServiceImpl implements SearchService {
     public SearchResult getResultFromDatabase(Long id) {
         if (searchRepository.findById(id).isPresent()) {
             return searchRepository.findById(id).get();
+        } else {
+            throw new NoSearchResultException(id);
         }
-        return null;
     }
 
     @Override
@@ -57,6 +59,15 @@ public class SearchServiceImpl implements SearchService {
         List<SearchResult> resultList = new ArrayList<>();
         searchRepository.findAll().forEach(resultList::add);
         return resultList;
+    }
+
+    @Override
+    public void deleteByIdFromDatabase(Long id) {
+        if (searchRepository.findById(id).isPresent()) {
+            searchRepository.deleteById(id);
+        } else {
+            throw new NoSearchResultException(id);
+        }
     }
 
 }
