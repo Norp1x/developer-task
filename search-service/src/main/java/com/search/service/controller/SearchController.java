@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +35,8 @@ public class SearchController {
     @ApiResponse(
             responseCode = "200",
             description = "Successful response from Google",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = SearchResultsDto.class))))
-    @GetMapping("/search")
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResultsDto.class))))
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) {
         List<SearchResultsDto> responseBody = searchService.search(query);
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
@@ -51,14 +51,12 @@ public class SearchController {
     @ApiResponse(
             responseCode = "200",
             description = "Successful response from database",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
     @ApiResponse(
             responseCode = "404",
             description = "Not found: \"The id '\" + id + \"' does not exist in database\"",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
-    @GetMapping("/database/{id}")
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
+    @GetMapping(value = "/database/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SearchResult> getSingleResultFromDatabase(@PathVariable long id) {
         SearchResult savedResult = searchService.getResultFromDatabase(id);
         return new ResponseEntity<>(savedResult, HttpStatus.OK);
@@ -72,9 +70,8 @@ public class SearchController {
     @ApiResponse(
             responseCode = "200",
             description = "Successful response from database",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
-    @GetMapping("/database/all")
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
+    @GetMapping(value = "/database/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SearchResult>> getAllResultsFromDatabase() {
         List<SearchResult> searchResults = searchService.getAllResultsFromDatabase();
         return new ResponseEntity<>(searchResults, HttpStatus.OK);
@@ -88,9 +85,8 @@ public class SearchController {
     @ApiResponse(
             responseCode = "201",
             description = "Successfully created in database",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
-    @PostMapping("/database")
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
+    @PostMapping(value = "/database", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SearchResult> saveInDatabase(@Valid @RequestBody SearchResult searchResult) {
         SearchResult saveResult = searchService.saveResultInDatabase(searchResult);
         return new ResponseEntity<>(saveResult, HttpStatus.CREATED);
@@ -104,9 +100,8 @@ public class SearchController {
     @ApiResponse(
             responseCode = "204",
             description = "Successfully deleted from database",
-            content = @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
-    @DeleteMapping("/database/delete/{id}")
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
+    @DeleteMapping(value = "/database/delete/{id}")
     public ResponseEntity<HttpStatus> deleteByIdFromDatabase(@PathVariable Long id) {
         searchService.deleteByIdFromDatabase(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
