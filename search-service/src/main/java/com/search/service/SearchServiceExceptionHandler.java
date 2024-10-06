@@ -1,6 +1,7 @@
 package com.search.service;
 
 import com.search.service.exception.ErrorResponse;
+import com.search.service.exception.NoConnectionException;
 import com.search.service.exception.NoSearchResultException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,11 @@ public class SearchServiceExceptionHandler extends ResponseEntityExceptionHandle
             errors.add(error.getDefaultMessage());
         }
         return new ResponseEntity<>(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoConnectionException.class)
+    public ResponseEntity<Object> handleNoConnectionException(NoConnectionException noConnectionException) {
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noConnectionException.getMessage()));
+        return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class SearchResultsListDto {
 
     @JsonProperty(value = "items")
-    public List<SearchResultsDto> searchResultsList;
+    private List<SearchResultsDto> searchResultsList;
 
-    private SearchResultsListDto() {
+    public SearchResultsListDto() {
         searchResultsList = new ArrayList<>();
     }
 }

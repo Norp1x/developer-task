@@ -3,6 +3,7 @@ package com.search.service.controller;
 import com.search.service.dto.SearchResultsDto;
 import com.search.service.entity.SearchResult;
 import com.search.service.exception.ErrorResponse;
+import com.search.service.exception.NoConnectionException;
 import com.search.service.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -36,6 +37,10 @@ public class SearchController {
             responseCode = "200",
             description = "Successful response from Google",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResultsDto.class))))
+    @ApiResponse(
+            responseCode = "503",
+            description = "Cannot resolve connection to Google-Service",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoConnectionException.class))))
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) {
         List<SearchResultsDto> responseBody = searchService.search(query);
