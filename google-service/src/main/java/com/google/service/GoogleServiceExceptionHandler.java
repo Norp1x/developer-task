@@ -21,7 +21,7 @@ public class GoogleServiceExceptionHandler extends ResponseEntityExceptionHandle
 
     @ExceptionHandler(NoConnectionException.class)
     public ResponseEntity<Object> handleNoConnectionException(NoConnectionException noConnectionException) {
-        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noConnectionException.getMessage()));
-        return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noConnectionException.getMessage()), HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
 }

@@ -2,6 +2,8 @@ package com.google.service.service;
 
 import com.google.service.dto.GoogleSearchResponseListDto;
 
+import java.net.ConnectException;
+
 /**
  * Created by Norpix on 03.11.2024.
  * Description: Service interface for handling search requests to an external Google API.
@@ -16,5 +18,5 @@ public interface GoogleSearchService {
      * @param query the search query to send to the Google API
      * @return a {@link GoogleSearchResponseListDto} containing the search results from Google
      */
-    GoogleSearchResponseListDto search(String query);
+    GoogleSearchResponseListDto search(String query) throws ConnectException;
 }

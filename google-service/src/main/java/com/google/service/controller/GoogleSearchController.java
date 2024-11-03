@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.ConnectException;
+
 /**
  * Created by Norpix on 03.11.2024.
  * Description: REST controller for handling search requests to an external Google API.
@@ -42,7 +44,7 @@ public class GoogleSearchController {
             description = "Cannot resolve connection",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public GoogleSearchResponseListDto getSearchResults(@RequestParam String query) {
+    public GoogleSearchResponseListDto getSearchResults(@RequestParam String query) throws ConnectException {
         return googleSearchService.search(query);
     }
 }

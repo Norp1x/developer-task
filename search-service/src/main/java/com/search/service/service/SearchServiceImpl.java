@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.ConnectException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +50,7 @@ public class SearchServiceImpl implements SearchService {
                     .map(item -> new SearchResultsDto(item.getTitle(), item.getLink()))
                     .toList();
         } catch (RestClientException restClientException) {
-            if (restClientException.getCause() instanceof ConnectException) {
-                throw new NoConnectionException();
-            }
-            throw restClientException;
+            throw new NoConnectionException(restClientException);
         }
     }
 
