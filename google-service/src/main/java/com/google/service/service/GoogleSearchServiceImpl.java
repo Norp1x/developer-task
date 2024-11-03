@@ -1,6 +1,7 @@
 package com.google.service.service;
 
 import com.google.service.dto.GoogleSearchResponseListDto;
+import com.google.service.exception.InputValidationException;
 import com.google.service.exception.NoConnectionException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,10 @@ public class GoogleSearchServiceImpl implements GoogleSearchService {
     final RestTemplate restTemplate;
 
     @Override
-    public GoogleSearchResponseListDto search(String query) {
+    public GoogleSearchResponseListDto search(String query) throws InputValidationException {
+        if (query.isBlank() || query.length() < 2 || query.length() > 50) {
+            throw new InputValidationException();
+        }
         String URL = GOOGLE_SEARCH_URL + KEY_PARAM_STRING + apiKey + CX_PARAM_STRING + cx + QUERY_PARAM_STRING;
         try {
             return restTemplate.getForEntity(URL + query, GoogleSearchResponseListDto.class).getBody();

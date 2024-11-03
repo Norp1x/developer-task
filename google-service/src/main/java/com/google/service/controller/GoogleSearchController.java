@@ -2,6 +2,7 @@ package com.google.service.controller;
 
 import com.google.service.dto.GoogleSearchResponseListDto;
 import com.google.service.exception.ErrorResponse;
+import com.google.service.exception.InputValidationException;
 import com.google.service.service.GoogleSearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -43,8 +44,12 @@ public class GoogleSearchController {
             responseCode = "503",
             description = "Cannot resolve connection",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
+    @ApiResponse(
+            responseCode = "400",
+            description = "Wrong input. Input can't be blank and must be between 2 and 50 characters",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = InputValidationException.class))))
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public GoogleSearchResponseListDto getSearchResults(@RequestParam String query) throws ConnectException {
+    public GoogleSearchResponseListDto getSearchResults(@RequestParam String query) throws ConnectException, InputValidationException {
         return googleSearchService.search(query);
     }
 }

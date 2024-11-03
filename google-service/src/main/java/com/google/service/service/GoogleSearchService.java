@@ -1,6 +1,7 @@
 package com.google.service.service;
 
 import com.google.service.dto.GoogleSearchResponseListDto;
+import com.google.service.exception.InputValidationException;
 
 import java.net.ConnectException;
 
@@ -18,5 +19,5 @@ public interface GoogleSearchService {
      * @param query the search query to send to the Google API
      * @return a {@link GoogleSearchResponseListDto} containing the search results from Google
      */
-    GoogleSearchResponseListDto search(String query) throws ConnectException;
+    GoogleSearchResponseListDto search(String query) throws ConnectException, InputValidationException;
 }

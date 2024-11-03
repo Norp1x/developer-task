@@ -1,5 +1,6 @@
 package com.search.service.service;
 
+import com.search.service.config.SearchServiceConfig;
 import com.search.service.dto.SearchResultsDto;
 import com.search.service.dto.SearchResultsListDto;
 import com.search.service.entity.SearchResult;
@@ -28,8 +29,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
 
-    //    private static final String URL = "http://google-service:8081/api/search?query=";
-    private static final String URL = "http://localhost:8081/api/search?query=";
+    private final SearchServiceConfig searchServiceConfig;
+
+    private final String URL = searchServiceConfig.getBaseUrl() + searchServiceConfig.getApiPath();
 
     private final RestTemplate restTemplate;
     private final SearchRepository searchRepository;
