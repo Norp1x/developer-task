@@ -30,9 +30,6 @@ import java.util.List;
 public class SearchServiceImpl implements SearchService {
 
     private final SearchServiceConfig searchServiceConfig;
-
-    private final String URL = searchServiceConfig.getBaseUrl() + searchServiceConfig.getApiPath();
-
     private final RestTemplate restTemplate;
     private final SearchRepository searchRepository;
     private final SearchResultsDtoToSearchResultMapper mapper;
@@ -43,7 +40,9 @@ public class SearchServiceImpl implements SearchService {
             throw new InputValidationException();
         }
         try {
-            ResponseEntity<SearchResultsListDto> response = restTemplate.getForEntity(URL + query, SearchResultsListDto.class);
+            ResponseEntity<SearchResultsListDto> response = restTemplate.getForEntity(searchServiceConfig.getBaseUrl()
+                    + searchServiceConfig.getApiPath() + query, SearchResultsListDto.class);
+
             List<SearchResult> searchResults = response.getBody().getSearchResultsList().stream()
                     .map(mapper::map)
                     .toList();
