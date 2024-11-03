@@ -72,7 +72,7 @@ public class SearchController {
             responseCode = "404",
             description = "Not found: \"The id '\" + id + \"' does not exist in database\"",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class))))
-    @GetMapping(value = "/database/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search/archive/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SearchResult> getSingleResultFromDatabase(@PathVariable long id) {
         SearchResult savedResult = searchService.getResultFromDatabase(id);
         return new ResponseEntity<>(savedResult, HttpStatus.OK);
@@ -87,9 +87,9 @@ public class SearchController {
             responseCode = "200",
             description = "Successful response from database",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
-    @GetMapping(value = "/database/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SearchResult>> getAllResultsFromDatabase() {
-        List<SearchResult> searchResults = searchService.getAllResultsFromDatabase();
+    @GetMapping(value = "/database/last-fifty", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SearchResult>> getLastFiftyResultsFromDatabase() {
+        List<SearchResult> searchResults = searchService.getLastFiftyResultsFromDatabase();
         return new ResponseEntity<>(searchResults, HttpStatus.OK);
     }
 
@@ -117,7 +117,7 @@ public class SearchController {
             responseCode = "204",
             description = "Successfully deleted from database",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResult.class))))
-    @DeleteMapping(value = "/database/delete/{id}")
+    @DeleteMapping(value = "/search/archive/{id}")
     public ResponseEntity<HttpStatus> deleteByIdFromDatabase(@PathVariable Long id) {
         searchService.deleteByIdFromDatabase(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

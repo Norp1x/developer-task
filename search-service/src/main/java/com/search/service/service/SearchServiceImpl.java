@@ -71,7 +71,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<SearchResult> getAllResultsFromDatabase() {
+    public List<SearchResult> getLastFiftyResultsFromDatabase() {
         List<SearchResult> resultList = new ArrayList<>();
         searchRepository.findAll().forEach(resultList::add);
         return resultList;

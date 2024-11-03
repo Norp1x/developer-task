@@ -19,7 +19,7 @@ public interface SearchService {
 
     SearchResult getResultFromDatabase(Long id);
 
-    List<SearchResult> getAllResultsFromDatabase();
+    List<SearchResult> getLastFiftyResultsFromDatabase();
 
     void deleteByIdFromDatabase(Long id);
 }
