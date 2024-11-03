@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: REST controller for handling search requests to an external Google API.
+ * This controller provides an endpoint to send a search query and retrieve results from Google.
+ */
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/search")
 public class GoogleSearchController {
 
-    GoogleSearchService googleSearchService;
+    private GoogleSearchService googleSearchService;
 
     @Tag(
             name = "Google search")

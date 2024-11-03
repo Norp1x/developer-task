@@ -3,6 +3,7 @@ package com.search.service.service;
 import com.search.service.dto.SearchResultsDto;
 import com.search.service.dto.SearchResultsListDto;
 import com.search.service.entity.SearchResult;
+import com.search.service.exception.InputValidationException;
 import com.search.service.exception.NoConnectionException;
 import com.search.service.exception.NoSearchResultException;
 import com.search.service.mapper.SearchResultsDtoToSearchResultMapper;
@@ -18,6 +19,12 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Implementation of the {@link SearchService} interface, providing methods to perform search operations
+ * and interact with the database. This service connects to an external Google-Service API to retrieve search results,
+ * validates inputs, and manages database records.
+ */
 @Service
 @RequiredArgsConstructor
 public class SearchServiceImpl implements SearchService {
@@ -30,7 +37,10 @@ public class SearchServiceImpl implements SearchService {
     private final SearchResultsDtoToSearchResultMapper mapper;
 
     @Override
-    public List<SearchResultsDto> search(String query) {
+    public List<SearchResultsDto> search(String query) throws InputValidationException {
+        if (query.isBlank() || query.length() < 2 || query.length() > 50) {
+            throw new InputValidationException();
+        }
         try {
             ResponseEntity<SearchResultsListDto> response = restTemplate.getForEntity(URL + query, SearchResultsListDto.class);
             List<SearchResult> searchResults = response.getBody().getSearchResultsList().stream()

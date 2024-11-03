@@ -1,6 +1,7 @@
 package com.search.service;
 
 import com.search.service.exception.ErrorResponse;
+import com.search.service.exception.InputValidationException;
 import com.search.service.exception.NoConnectionException;
 import com.search.service.exception.NoSearchResultException;
 import org.springframework.http.HttpHeaders;
@@ -18,13 +19,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Global exception handler for the SearchService application.
+ * This class provides centralized exception handling across all controllers,
+ * handling specific exceptions and returning custom error responses.
+ */
 @ControllerAdvice
 public class SearchServiceExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NoSearchResultException.class)
     public ResponseEntity<Object> handleNoSearchResultException(NoSearchResultException noSearchResultException) {
-        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noSearchResultException.getMessage()));
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noSearchResultException.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
 
     @Override
@@ -37,12 +44,18 @@ public class SearchServiceExceptionHandler extends ResponseEntityExceptionHandle
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
             errors.add(error.getDefaultMessage());
         }
-        return new ResponseEntity<>(new ErrorResponse(errors), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse(errors, HttpStatus.BAD_REQUEST), HttpStatus.OK);
     }
 
     @ExceptionHandler(NoConnectionException.class)
     public ResponseEntity<Object> handleNoConnectionException(NoConnectionException noConnectionException) {
-        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noConnectionException.getMessage()));
-        return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noConnectionException.getMessage()), HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(InputValidationException.class)
+    public ResponseEntity<Object> handleInputValidationException(InputValidationException inputValidationException) {
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(inputValidationException.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
 }

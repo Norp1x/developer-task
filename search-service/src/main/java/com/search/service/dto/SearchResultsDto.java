@@ -6,6 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Data Transfer Object (DTO) representing a search result.
+ * This class is used to transfer search result data, including the title and link,
+ * between different parts of the application.
+ */
 @Data
 @Builder
 @AllArgsConstructor

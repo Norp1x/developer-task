@@ -9,7 +9,12 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Entity class representing a search result.
+ * This class maps to the "search_results" table in the database and stores details about each search result,
+ * including title, link, and date.
+ */
 @Entity
 @Data
 @Builder

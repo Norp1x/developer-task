@@ -3,6 +3,7 @@ package com.search.service.controller;
 import com.search.service.dto.SearchResultsDto;
 import com.search.service.entity.SearchResult;
 import com.search.service.exception.ErrorResponse;
+import com.search.service.exception.InputValidationException;
 import com.search.service.exception.NoConnectionException;
 import com.search.service.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +21,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: REST controller providing search and database-related endpoints.
+ * This controller handles operations related to Google search requests
+ * as well as CRUD operations on a local database of search results.
+ */
 @AllArgsConstructor
 @RestController
 @RequestMapping
@@ -41,8 +48,12 @@ public class SearchController {
             responseCode = "503",
             description = "Cannot resolve connection to Google-Service",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = NoConnectionException.class))))
+    @ApiResponse(
+            responseCode = "400",
+            description = "Wrong input. Input can't be blank and must be between 2 and 50 characters",
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = InputValidationException.class))))
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) {
+    public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) throws InputValidationException {
         List<SearchResultsDto> responseBody = searchService.search(query);
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }

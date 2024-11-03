@@ -7,6 +7,11 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Represents an error response sent to the client when an exception occurs.
+ * This class contains a timestamp of the error and a list of error messages.
+ */
 @Getter
 @Setter
 public class ErrorResponse {

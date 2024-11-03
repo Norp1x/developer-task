@@ -7,6 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Implementation of the {@link GoogleSearchService} interface for performing search requests to the Google API.
+ * This service constructs a query URL using API key and custom search engine ID (cx) parameters,
+ * and sends a search request to Google Custom Search JSON API.
+ */
 @Service
 @RequiredArgsConstructor
 public class GoogleSearchServiceImpl implements GoogleSearchService {

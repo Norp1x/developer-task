@@ -5,6 +5,11 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Configuration class for setting up OpenAPI documentation for the application.
+ * This configuration defines metadata such as the title, description, and version of the API.
+ */
 @Configuration
 public class OpenApiConfig {
 

@@ -10,6 +10,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Arrays;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Global exception handler for handling exceptions related to Google API service.
+ * This class provides centralized exception handling for specific exceptions,
+ * returning custom error responses to the client.
+ */
 @ControllerAdvice
 public class GoogleServiceExceptionHandler extends ResponseEntityExceptionHandler {
 

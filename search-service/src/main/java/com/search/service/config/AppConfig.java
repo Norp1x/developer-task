@@ -8,6 +8,12 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Created by Norpix on 03.11.2024.
+ * Description: Configuration class for setting up a {@link RestTemplate} bean with custom timeout settings.
+ * This class defines connection and read timeouts for HTTP requests, allowing control over how long
+ * the application waits for server responses.
+ */
 @Configuration
 public class AppConfig {
 
