@@ -14,12 +14,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
+    private static final String SEARCH_SERVICE_API_TITLE = "Search-Service API";
+    private static final String SEARCH_SERVICE_API_DESCRIPTION = "An API that manages calls to Google-Service API and Local Database";
+    private static final String SEARCH_SERVICE_API_VERSION = "v0.1";
+
     @Bean
     OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Search-Service API")
-                        .description("An API that manages calls to Google-Service API and Local Database")
-                        .version("v0.1"));
+                        .title(SEARCH_SERVICE_API_TITLE)
+                        .description(SEARCH_SERVICE_API_DESCRIPTION)
+                        .version(SEARCH_SERVICE_API_VERSION));
     }
 }
