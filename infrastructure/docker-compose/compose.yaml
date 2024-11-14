@@ -10,25 +10,21 @@
 services:
   search-service:
     build:
-      context: search-service
-      dockerfile: Dockerfile
+      context: ../../search-service
+      dockerfile: ../../search-service/Dockerfile
     ports:
       - "8080:8080"
     networks:
-      - project-network
+      - search-service-system
 
   google-service:
     build:
-      context: google-service
-      dockerfile: Dockerfile
+      context: ../../google-service
+      dockerfile: ../../google-service/Dockerfile
     ports:
       - "8081:8081"
     networks:
-      - project-network
-
-networks:
-  project-network:
-    driver: bridge
+      - search-service-system
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to

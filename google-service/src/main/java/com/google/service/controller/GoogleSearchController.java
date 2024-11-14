@@ -1,6 +1,6 @@
 package com.google.service.controller;
 
-import com.google.service.dto.GoogleSearchResponseListDto;
+import com.google.service.dto.SearchResultsListDto;
 import com.google.service.exception.ErrorResponse;
 import com.google.service.exception.InputValidationException;
 import com.google.service.service.GoogleSearchService;
@@ -39,7 +39,7 @@ public class GoogleSearchController {
     @ApiResponse(
             responseCode = "200",
             description = "Successful response from Google",
-            content = @Content(array = @ArraySchema(schema = @Schema(implementation = GoogleSearchResponseListDto.class))))
+            content = @Content(array = @ArraySchema(schema = @Schema(implementation = SearchResultsListDto.class))))
     @ApiResponse(
             responseCode = "503",
             description = "Cannot resolve connection",
@@ -49,7 +49,7 @@ public class GoogleSearchController {
             description = "Wrong input. Input can't be blank and must be between 2 and 50 characters",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = InputValidationException.class))))
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public GoogleSearchResponseListDto getSearchResults(@RequestParam String query) throws ConnectException, InputValidationException {
+    public SearchResultsListDto getSearchResults(@RequestParam String query) throws ConnectException, InputValidationException {
         return googleSearchService.search(query);
     }
 }

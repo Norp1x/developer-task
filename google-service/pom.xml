@@ -14,8 +14,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>21</java.version>
-
         <spring-boot-starter-actuator.version>3.3.2</spring-boot-starter-actuator.version>
         <spring-boot-starter-web.version>3.3.3</spring-boot-starter-web.version>
         <spring-boot-devtools.version>3.3.3</spring-boot-devtools.version>
@@ -88,43 +86,10 @@
             <version>${springdoc-openapi-ui.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.search.project</groupId>
+            <artifactId>kafka</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>
-                        com.google.service.GoogleServiceApplication
-                    </mainClass>
-                    <excludes>
-                        <exclude>
-                            application.yml
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <excludes>
-                        <exclude>application.yml</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <repositories>
-        <repository>
-            <id>maven_central</id>
-            <name>Maven Central</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-    </repositories>
 </project>

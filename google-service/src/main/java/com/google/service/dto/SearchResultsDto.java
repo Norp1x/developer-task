@@ -8,7 +8,7 @@ import lombok.Data;
  * This class contains details about an individual search result, including the title and link.
  */
 @Data
-public class GoogleSearchResponseItemDto {
+public class SearchResultsDto {
 
     /**
      * The title of the search result item.

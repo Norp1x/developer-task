@@ -1,10 +1,12 @@
 package com.search.service.service
 
+import com.search.service.config.SearchServiceConfig
 import com.search.service.dto.SearchResultsDto
 import com.search.service.dto.SearchResultsListDto
 import com.search.service.entity.SearchResult
 import com.search.service.mapper.SearchResultsDtoToSearchResultMapper
 import com.search.service.repository.SearchRepository
+import com.search.service.service.impl.SearchServiceImpl
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
@@ -14,7 +16,8 @@ class SearchServiceImplTest extends Specification {
     def restTemplate = Mock(RestTemplate)
     def searchRepository = Mock(SearchRepository)
     def mapper = Mock(SearchResultsDtoToSearchResultMapper)
-    def searchService = new SearchServiceImpl(restTemplate, searchRepository, mapper)
+    def config = Mock(SearchServiceConfig)
+    def searchService = new SearchServiceImpl(config, restTemplate, searchRepository, mapper)
 
     def "Should return list of results when search query requested"() {
         given:

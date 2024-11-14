@@ -24,4 +24,10 @@ public class GoogleServiceExceptionHandler extends ResponseEntityExceptionHandle
         ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(noConnectionException.getMessage()), HttpStatus.SERVICE_UNAVAILABLE);
         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleUnknownExceptions(Exception exception) {
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+    }
 }

@@ -58,4 +58,10 @@ public class SearchServiceExceptionHandler extends ResponseEntityExceptionHandle
         ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(inputValidationException.getMessage()), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(errorResponse, HttpStatus.OK);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleUnknownExceptions(Exception exception) {
+        ErrorResponse errorResponse = new ErrorResponse(Arrays.asList(exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+    }
 }

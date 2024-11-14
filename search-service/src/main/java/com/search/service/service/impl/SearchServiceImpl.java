@@ -1,4 +1,4 @@
-package com.search.service.service;
+package com.search.service.service.impl;
 
 import com.search.service.config.SearchServiceConfig;
 import com.search.service.dto.SearchResultsDto;
@@ -9,6 +9,7 @@ import com.search.service.exception.NoConnectionException;
 import com.search.service.exception.NoSearchResultException;
 import com.search.service.mapper.SearchResultsDtoToSearchResultMapper;
 import com.search.service.repository.SearchRepository;
+import com.search.service.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
