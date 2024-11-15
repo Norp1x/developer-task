@@ -2,19 +2,18 @@ package com.search.project.kafka.producer.service.impl;
 
 import com.search.project.kafka.producer.service.KafkaProducerService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.avro.specific.SpecificRecordBase;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
 /**
  * Created by Norpix on 14.11.2024.
- * Description:
+ * Description: Implementation of the Kafka Producer Service
  */
 @Slf4j
-@Component
-public class KafkaProducerServiceImpl<K extends Serializable, V extends SpecificRecordBase> implements KafkaProducerService<K, V> {
+@Service
+public class KafkaProducerServiceImpl<K extends Serializable, V extends String> implements KafkaProducerService<K, V> {
 
     private final KafkaTemplate<K, V> kafkaTemplate;
 

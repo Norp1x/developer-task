@@ -9,12 +9,14 @@
 ################################################################################
 
 # Create a stage for resolving and downloading dependencies.
-FROM alpine as deps
+FROM eclipse-temurin:21-alpine as deps
+
+RUN apk add --no-cache bash curl git
 
 WORKDIR /build
 
 # Copy the mvnw wrapper with executable permissions.
-COPY --chmod=0755 mvnw mvnw
+COPY --chmod=0755 mvnw .
 COPY .mvn/ .mvn/
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
@@ -66,7 +68,7 @@ RUN java -Djarmode=layertools -jar target/app.jar extract --destination target/e
 # most recent version of that tag when you build your Dockerfile.
 # If reproducability is important, consider using a specific digest SHA, like
 # eclipse-temurin@sha256:99cede493dfd88720b610eb8077c8688d3cca50003d76d1d539b0efc8cca72b4.
-FROM alpine AS final
+FROM eclipse-temurin:21-alpine AS final
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/

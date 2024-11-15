@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +51,12 @@ public class GoogleSearchController {
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = InputValidationException.class))))
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchResultsListDto getSearchResults(@RequestParam String query) throws ConnectException, InputValidationException {
+        return googleSearchService.search(query);
+    }
+
+    @KafkaListener(topics = "google-search", groupId = "google-service")
+    @GetMapping(value = "/kafka", produces = MediaType.APPLICATION_JSON_VALUE)
+    public SearchResultsListDto query(@RequestParam String query) throws InputValidationException, ConnectException {
         return googleSearchService.search(query);
     }
 }
