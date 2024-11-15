@@ -88,7 +88,25 @@
 
         <dependency>
             <groupId>com.search.project</groupId>
-            <artifactId>kafka</artifactId>
+            <artifactId>kafka-producer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.search.project</groupId>
+            <artifactId>kafka-consumer</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.search.project</groupId>
+            <artifactId>kafka-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.search.project</groupId>
+            <artifactId>kafka-config-data</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

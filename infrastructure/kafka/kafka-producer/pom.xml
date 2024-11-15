@@ -34,18 +34,6 @@
             <groupId>io.confluent</groupId>
             <artifactId>kafka-avro-serializer</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.search.project</groupId>
-            <artifactId>search-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.search.project</groupId>
-            <artifactId>google-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 
