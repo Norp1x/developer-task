@@ -1,0 +1,3 @@
+networks:
+  search-service-system:
+    driver: bridge

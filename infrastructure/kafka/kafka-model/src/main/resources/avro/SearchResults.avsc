@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "SearchResultsDto",
+  "namespace": "com.search.project.kafka.response.avro.model",
+  "fields": [
+    { "name": "title", "type": "string" },
+    { "name": "link", "type": "string" }
+  ]
+}
