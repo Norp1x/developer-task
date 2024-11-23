@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition
-@SpringBootApplication(scanBasePackages = {"com.search.service", "com.search.project.kafka"})
+@SpringBootApplication(scanBasePackages = {"com.search.service"})
 public class SearchServiceApplication {
 
     public static void main(String[] args) {
