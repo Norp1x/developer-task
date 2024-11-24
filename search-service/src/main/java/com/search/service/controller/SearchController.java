@@ -5,6 +5,7 @@ import com.search.service.entity.SearchResult;
 import com.search.service.exception.ErrorResponse;
 import com.search.service.exception.InputValidationException;
 import com.search.service.exception.NoConnectionException;
+import com.search.service.service.KafkaProducerService;
 import com.search.service.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -33,6 +34,7 @@ import java.util.List;
 public class SearchController {
 
     private final SearchService searchService;
+    private final KafkaProducerService kafkaProducerService;
 
     @Tag(
             name = "Search operations",
@@ -56,6 +58,12 @@ public class SearchController {
     public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) throws InputValidationException {
         List<SearchResultsDto> responseBody = searchService.search(query);
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> sendEvent(@RequestParam String query) {
+        kafkaProducerService.sendMessage("search-topic", query);
+        return new ResponseEntity<>("Event sent", HttpStatus.OK);
     }
 
     @Tag(
