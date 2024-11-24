@@ -1,6 +1,5 @@
 package com.search.service.controller;
 
-import com.search.project.kafka.producer.service.impl.KafkaProducerServiceImpl;
 import com.search.service.dto.SearchResultsDto;
 import com.search.service.entity.SearchResult;
 import com.search.service.exception.ErrorResponse;
@@ -34,7 +33,6 @@ import java.util.List;
 public class SearchController {
 
     private final SearchService searchService;
-    private final KafkaProducerServiceImpl kafkaProducerService;
 
     @Tag(
             name = "Search operations",
@@ -58,12 +56,6 @@ public class SearchController {
     public ResponseEntity<List<SearchResultsDto>> search(@RequestParam String query) throws InputValidationException {
         List<SearchResultsDto> responseBody = searchService.search(query);
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/kafka/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> query(@RequestParam String query) {
-        kafkaProducerService.send("search-request", "1", query);
-        return new ResponseEntity<>("Query sent to Kafka", HttpStatus.OK);
     }
 
     @Tag(

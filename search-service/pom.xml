@@ -14,7 +14,6 @@
     <packaging>jar</packaging>
 
     <properties>
-
     </properties>
 
     <dependencyManagement>
@@ -28,6 +27,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.basedir}</outputDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
