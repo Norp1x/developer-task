@@ -23,6 +23,15 @@ public interface SearchService {
     List<SearchResultsDto> search(String query) throws InputValidationException;
 
     /**
+     * Performs a search request based on the provided query with Kafka.
+     *
+     * @param query the search query to be processed
+     * @return a list of {@link SearchResultsDto} containing the search results
+     * @throws InputValidationException if the input query is invalid
+     */
+    List<SearchResultsDto> kafkaSearch(String query) throws InputValidationException;
+
+    /**
      * Saves a search result to the database.
      *
      * @param searchResult the {@link SearchResult} to be saved

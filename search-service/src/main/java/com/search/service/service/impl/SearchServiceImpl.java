@@ -37,6 +37,15 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<SearchResultsDto> search(String query) throws InputValidationException {
+        return getSearchResults(query);
+    }
+
+    @Override
+    public List<SearchResultsDto> kafkaSearch(String query) throws InputValidationException {
+        return getSearchResults(query);
+    }
+
+    private List<SearchResultsDto> getSearchResults(String query) throws InputValidationException {
         if (query.isBlank() || query.length() < 2 || query.length() > 50) {
             throw new InputValidationException();
         }

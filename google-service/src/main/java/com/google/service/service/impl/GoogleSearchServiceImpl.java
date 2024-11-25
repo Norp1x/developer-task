@@ -4,9 +4,11 @@ import com.google.service.dto.SearchResultsListDto;
 import com.google.service.exception.InputValidationException;
 import com.google.service.exception.NoConnectionException;
 import com.google.service.service.GoogleSearchService;
+import com.google.service.service.KafkaConsumerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class GoogleSearchServiceImpl implements GoogleSearchService {
+public class GoogleSearchServiceImpl implements GoogleSearchService, KafkaConsumerService {
 
     @Value("${google.api.key}")
     private String apiKey;
@@ -37,6 +39,25 @@ public class GoogleSearchServiceImpl implements GoogleSearchService {
 
     @Override
     public SearchResultsListDto search(String query) throws InputValidationException {
+        return getSearchResultsListDto(query);
+    }
+
+    @Override
+    public void consumeMessage() {
+    }
+
+    @KafkaListener(topics = "search-topic", groupId = "search-service")
+    @Override
+    public void consumeMessage(String query) {
+        try {
+            getSearchResultsListDto(query);
+            log.info("Consumed message from search-topic: {}", query);
+        } catch (InputValidationException | NoConnectionException e) {
+            log.error("Error while consuming message ", e);
+        }
+    }
+
+    private SearchResultsListDto getSearchResultsListDto(String query) throws InputValidationException {
         if (query.isBlank() || query.length() < 2 || query.length() > 50) {
             throw new InputValidationException();
         }
@@ -48,4 +69,5 @@ public class GoogleSearchServiceImpl implements GoogleSearchService {
             throw new NoConnectionException(restClientException);
         }
     }
+
 }
