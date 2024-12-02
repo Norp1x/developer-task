@@ -60,10 +60,10 @@ public class SearchController {
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/kafka-search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/kafka-search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> sendEvent(@RequestParam String query) {
         kafkaProducerService.sendMessage("search-topic", query);
-        return new ResponseEntity<>("Event sent", HttpStatus.OK);
+        return new ResponseEntity<>("Event sent!", HttpStatus.OK);
     }
 
     @Tag(
