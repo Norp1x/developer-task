@@ -13,10 +13,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.ConnectException;
 
@@ -30,6 +32,8 @@ import java.net.ConnectException;
 @RequestMapping("/api/search")
 public class GoogleSearchController {
 
+    private final RestTemplate restTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
     private GoogleSearchService googleSearchService;
 
     @Tag(
@@ -57,6 +61,10 @@ public class GoogleSearchController {
     @KafkaListener(topics = "search-topic", groupId = "google-service")
     @GetMapping(value = "/kafka", produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchResultsListDto query(@RequestParam String query) throws InputValidationException, ConnectException {
+        String response = restTemplate.getForObject("http://localhost:8080/api/search?query=" + query, String.class);
+        if (response != null) {
+            kafkaTemplate.send("output-topic", response);
+        }
         return googleSearchService.search(query);
     }
 }

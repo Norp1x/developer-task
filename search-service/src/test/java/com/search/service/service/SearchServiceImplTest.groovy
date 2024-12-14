@@ -13,35 +13,47 @@ import spock.lang.Specification
 
 class SearchServiceImplTest extends Specification {
 
+    private static final String TEST_QUERY_VALUE = "test"
+    private static final String FIRST_TEST_TITLE_VALUE = "firstTestTitle"
+    private static final String FIRST_TEST_LINK_VALUE = "firstTestLink"
+    private static final String SECOND_TEST_TITLE_VALUE = "secondTestTitle"
+    private static final String SECOND_TEST_LINK_VALUE = "secondTestLink"
+
     def restTemplate = Mock(RestTemplate)
     def searchRepository = Mock(SearchRepository)
     def mapper = Mock(SearchResultsDtoToSearchResultMapper)
     def config = Mock(SearchServiceConfig)
     def searchService = new SearchServiceImpl(config, restTemplate, searchRepository, mapper)
 
-    def "Should return list of results when search query requested"() {
+    def "Should return list of results when search query requested and save response to database"() {
         given:
-        def query = "test"
-        List<SearchResultsDto> searchResultsDto = SearchResultsDto.builder()
-                .title("testTitle")
-                .link("testLink")
-                .build() as List<SearchResultsDto>
-        def searchResultsListDto = new SearchResultsListDto(searchResultsDto)
+        def testQuery = TEST_QUERY_VALUE
+        SearchResultsListDto searchResultsListDto = new SearchResultsListDto(List.of(
+                prepareFirstExampleSearchResults(), prepareSecondExampleSearchResults()))
         def responseEntity = ResponseEntity.ok(searchResultsListDto)
 
         when:
         restTemplate.getForEntity(_ as String, SearchResultsListDto.class) >> responseEntity
-        mapper.map(_ as SearchResultsDto) >> new SearchResult()
-        def result = searchService.search(query)
+        def resultList = searchService.search(testQuery)
 
         then:
-        result.size() == 1
-        result[0].title == "testTitle"
-        result[0].link == "testLink"
+        resultList.size() == 2
+        resultList[0].title == FIRST_TEST_TITLE_VALUE
+        resultList[0].link == FIRST_TEST_LINK_VALUE
+        resultList[1].title == SECOND_TEST_TITLE_VALUE
+        resultList[1].link == SECOND_TEST_LINK_VALUE
         1 * searchRepository.saveAll(_)
     }
 
-    def "SaveResultInDatabase"() {
+    def "Should call 'save' method from searchRepository when using 'saveResultInDatabase' method from searchService"() {
+        given:
+        def searchResults = new SearchResult()
+
+        when:
+        searchService.saveResultInDatabase(searchResults)
+
+        then:
+        1 * searchRepository.save(_)
     }
 
     def "GetResultFromDatabase"() {
@@ -51,5 +63,22 @@ class SearchServiceImplTest extends Specification {
     }
 
     def "DeleteByIdFromDatabase"() {
+    }
+
+
+    SearchResultsDto prepareFirstExampleSearchResults() {
+        SearchResultsDto searchResultsDto = SearchResultsDto.builder()
+                .title(FIRST_TEST_TITLE_VALUE)
+                .link(FIRST_TEST_LINK_VALUE)
+                .build()
+        searchResultsDto
+    }
+
+    SearchResultsDto prepareSecondExampleSearchResults() {
+        SearchResultsDto searchResultsDto = SearchResultsDto.builder()
+                .title(SECOND_TEST_TITLE_VALUE)
+                .link(SECOND_TEST_LINK_VALUE)
+                .build()
+        searchResultsDto
     }
 }

@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,6 +65,12 @@ public class SearchController {
     public ResponseEntity<String> sendEvent(@RequestParam String query) {
         kafkaProducerService.sendMessage("search-topic", query);
         return new ResponseEntity<>("Event sent!", HttpStatus.OK);
+    }
+
+    @KafkaListener(topics = "output-topic", groupId = "search-service")
+     public ResponseEntity<List<SearchResultsDto>> receiveEvent(@RequestParam String message) throws InputValidationException {
+        List<SearchResultsDto> responseBody = searchService.search(message);
+        return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
     @Tag(
