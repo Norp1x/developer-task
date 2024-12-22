@@ -1,4 +1,4 @@
 api:
-#  baseUrl: http://localhost:8081/
-  baseUrl: http://google-service:8081/
+  baseUrl: http://localhost:8081/
+#  baseUrl: http://google-service:8081/
   apiPath: api/search?query=

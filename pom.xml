@@ -35,6 +35,10 @@
         <spring-kafka.version>3.2.2</spring-kafka.version>
         <kafka-avro-serializer.version>7.7.0</kafka-avro-serializer.version>
         <avro.version>1.12.0</avro.version>
+        <spock-core.version>2.4-M4-groovy-4.0</spock-core.version>
+        <mssql-jdbc.version>12.8.1.jre11</mssql-jdbc.version>
+        <hibernate-core.version>6.6.4.Final</hibernate-core.version>
+        <spring-data-commons.version>3.4.1</spring-data-commons.version>
     </properties>
 
     <dependencies>
@@ -55,6 +59,12 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,6 +112,27 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>${spring-data-commons.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>${mssql-jdbc.version}</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
@@ -128,7 +159,7 @@
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
-            <version>2.4-M4-groovy-4.0</version>
+            <version>${spock-core.version}</version>
             <scope>test</scope>
         </dependency>
 

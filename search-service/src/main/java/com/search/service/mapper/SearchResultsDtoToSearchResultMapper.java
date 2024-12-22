@@ -5,7 +5,7 @@ import com.search.service.entity.SearchResult;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * Created by Norpix on 03.11.2024.
@@ -16,10 +16,10 @@ import java.sql.Date;
 @Mapper(componentModel = "spring")
 public interface SearchResultsDtoToSearchResultMapper {
 
-    @Mapping(target = "date", expression = "java(currentDate())")
+    @Mapping(target = "dateTime", expression = "java(currentTime())")
     SearchResult map(SearchResultsDto searchResultsDto);
 
-    default Date currentDate() {
-        return new Date(System.currentTimeMillis());
+    default LocalDateTime currentTime() {
+        return LocalDateTime.now();
     }
 }

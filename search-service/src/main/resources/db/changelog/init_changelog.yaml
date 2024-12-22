@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1734814911382-1
+      author: Norpix
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      runOnChange: true
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_search_results
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: link
+                  type: VARCHAR(255)
+              - column:
+                  name: date
+                  type: DATE
+            tableName: search_results
+

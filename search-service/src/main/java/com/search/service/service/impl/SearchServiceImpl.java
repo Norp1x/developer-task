@@ -11,13 +11,12 @@ import com.search.service.mapper.SearchResultsDtoToSearchResultMapper;
 import com.search.service.repository.SearchRepository;
 import com.search.service.service.SearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +32,7 @@ public class SearchServiceImpl implements SearchService {
     private final SearchServiceConfig searchServiceConfig;
     private final RestTemplate restTemplate;
     private final SearchRepository searchRepository;
+    @Qualifier("searchResultsDtoToSearchResultMapperImpl")
     private final SearchResultsDtoToSearchResultMapper mapper;
 
     @Override
@@ -67,8 +67,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public SearchResult saveResultInDatabase(SearchResult searchResult) {
-        Date date = new Date(System.currentTimeMillis());
-        searchResult.setDate(date);
+        searchResult.setDateTime(mapper.currentTime());
         return searchRepository.save(searchResult);
     }
 
@@ -83,9 +82,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<SearchResult> getLastFiftyResultsFromDatabase() {
-        List<SearchResult> resultList = new ArrayList<>();
-        searchRepository.findAll().forEach(resultList::add);
-        return resultList;
+        return searchRepository.findTop50ByOrderByIdDesc();
     }
 
     @Override

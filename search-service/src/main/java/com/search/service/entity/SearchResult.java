@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * Created by Norpix on 03.11.2024.
@@ -36,7 +36,7 @@ public class SearchResult {
     @Column(name = "link")
     private String link;
 
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
 
 }

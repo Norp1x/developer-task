@@ -3,6 +3,10 @@ spring:
     name: 'search-service'
   config:
     import: classpath:SearchServiceConfig.yml
+  security:
+    user:
+      name: Norpix
+      password: sa123
 
   h2:
     console:
@@ -12,26 +16,65 @@ spring:
         web-allow-others: true
 
   datasource:
-    url: ${DB_URL:jdbc:h2:mem:search-app}
-    username: sa
-    password:
+    url: ${DB_URL:jdbc:sqlserver://localhost:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true}
+    username: ${DB_USERNAME:Norpix}
+    password: ${DB_PASSWORD:sa123}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
-    consumer:
-      group-id: ${KAFKA_GROUP_ID:search-service}
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      acks: all
-      retries: 3
-      batch-size: 16384
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+  liquibase:
+    enabled: true
+    change-log: db/changelog/changelog-master.yaml
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: update
+
+#  h2:
+#  console:
+#    enabled: true
+#    path: ${H2_PATH:/h2}
+#    settings:
+#      web-allow-others: true
+
+#  datasource:
+#    url: ${DB_URL:jdbc:h2:mem:search-app}
+#    username: sa
+#    password:
+
+#  kafka:
+#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+#    consumer:
+#      group-id: ${KAFKA_GROUP_ID:search-service}
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      acks: all
+#      retries: 3
+#      batch-size: 16384
 
 server:
   port: ${PORT_NUMBER:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health, info"
+  health:
+    db:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
 
 springdoc:
   api-docs:
@@ -40,3 +83,10 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+
+logging:
+  level:
+    org.hibernate: WARN
+    com.microsoft.sqlserver: WARN
+    org.flywaydb.core: DEBUG
+    liquibase: DEBUG

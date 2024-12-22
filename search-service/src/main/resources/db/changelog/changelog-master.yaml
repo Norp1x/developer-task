@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init_changelog.yaml
+  - include:
+      file: db/changelog/changes-changelog.yaml
+  - include:
+      file: db/changelog/22-01-changelog.yaml
+  - include:
+      file: db/changelog/22-02-changelog.yaml
