@@ -31,6 +31,24 @@
                     <outputDirectory>${project.basedir}</outputDirectory>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>1.12.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                            <goal>protocol</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDirectory>src/main/java/com/search/service/avro</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/generated-sources/avro</outputDirectory>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

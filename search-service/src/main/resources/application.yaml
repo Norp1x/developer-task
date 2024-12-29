@@ -3,10 +3,6 @@ spring:
     name: 'search-service'
   config:
     import: classpath:SearchServiceConfig.yml
-  security:
-    user:
-      name: Norpix
-      password: sa123
 
   h2:
     console:
@@ -15,11 +11,15 @@ spring:
       settings:
         web-allow-others: true
 
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
   datasource:
-    url: ${DB_URL:jdbc:sqlserver://localhost:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true}
-    username: ${DB_USERNAME:Norpix}
-    password: ${DB_PASSWORD:sa123}
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DRIVER_CLASS_NAME}
 
   flyway:
     enabled: false
@@ -35,31 +35,21 @@ spring:
     hibernate:
       ddl-auto: update
 
-#  h2:
-#  console:
-#    enabled: true
-#    path: ${H2_PATH:/h2}
-#    settings:
-#      web-allow-others: true
-
-#  datasource:
-#    url: ${DB_URL:jdbc:h2:mem:search-app}
-#    username: sa
-#    password:
-
-#  kafka:
-#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
-#    consumer:
-#      group-id: ${KAFKA_GROUP_ID:search-service}
-#      auto-offset-reset: earliest
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#    producer:
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      acks: all
-#      retries: 3
-#      batch-size: 16384
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    consumer:
+      group-id: ${KAFKA_GROUP_ID:search-service}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      retries: 3
+      batch-size: 16384
+    properties:
+      schema.registry.url: http://localhost:8080
 
 server:
   port: ${PORT_NUMBER:8080}
@@ -88,5 +78,7 @@ logging:
   level:
     org.hibernate: WARN
     com.microsoft.sqlserver: WARN
-    org.flywaydb.core: DEBUG
-    liquibase: DEBUG
+    org.flywaydb.core: WARN
+    liquibase: WARN
+    kafka: ERROR
+    sql: ERROR

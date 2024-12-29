@@ -61,6 +61,36 @@ services:
     networks:
         - search-service-network
 
+#  postgresql:
+#    image: bitnami/postgresql:latest
+#    container_name: postgresql-container
+#    ports:
+#      - "5432:5432"
+#    restart: always
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#    networks:
+#      - search-service-network
+
+#  mongodb:
+#    image: mongodb/mongodb-community-server:latest
+#    container_name: mongodb-container
+#    ports:
+#      - "27017:27017"
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: admin
+#      MONGO_INITDB_ROOT_PASSWORD: YourStrong@Passw0rd
+#    volumes:
+#      - mongodb-data:/data/db
+#    restart: always
+#    networks:
+#      - search-service-network
+
+#volumes:
+#  mongodb-data:
+#  sqlserver-data:
+
 networks:
     search-service-network:
         driver: bridge
