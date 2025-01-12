@@ -1,29 +1,36 @@
-package com.search.service.service
+package com.search.service.service.impl
 
 import com.search.service.config.SearchServiceConfig
 import com.search.service.dto.SearchResultsDto
 import com.search.service.dto.SearchResultsListDto
 import com.search.service.entity.SearchResult
 import com.search.service.mapper.SearchResultsDtoToSearchResultMapper
+import com.search.service.mapper.SearchResultsDtoToSearchResultMongoDbMapper
+import com.search.service.repository.SearchMongoRepository
 import com.search.service.repository.SearchRepository
-import com.search.service.service.impl.SearchServiceImpl
+import com.search.service.repository.TxtFileRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
+
+import java.time.LocalDateTime
 
 class SearchServiceImplTest extends Specification {
 
     private static final String TEST_QUERY_VALUE = "test"
     private static final String FIRST_TEST_TITLE_VALUE = "firstTestTitle"
-    private static final String FIRST_TEST_LINK_VALUE = "firstTestLink"
+    private static final String FIRST_TEST_LINK_VALUE = "www.firstTestLink.com"
     private static final String SECOND_TEST_TITLE_VALUE = "secondTestTitle"
-    private static final String SECOND_TEST_LINK_VALUE = "secondTestLink"
+    private static final String SECOND_TEST_LINK_VALUE = "www.secondTestLink.com"
 
+    def txtFileRepository = Mock(TxtFileRepository)
+    def searchMongoRepository = Mock(SearchMongoRepository)
+    def mongoDbMapper = Mock(SearchResultsDtoToSearchResultMongoDbMapper)
     def restTemplate = Mock(RestTemplate)
     def searchRepository = Mock(SearchRepository)
     def mapper = Mock(SearchResultsDtoToSearchResultMapper)
     def config = Mock(SearchServiceConfig)
-    def searchService = new SearchServiceImpl(config, restTemplate, searchRepository, mapper)
+    def searchService = new SearchServiceImpl(config, restTemplate, searchRepository, txtFileRepository, searchMongoRepository, mapper, mongoDbMapper)
 
     def "Should return list of results when search query requested and save response to database"() {
         given:
@@ -47,13 +54,14 @@ class SearchServiceImplTest extends Specification {
 
     def "Should call 'save' method from searchRepository when using 'saveResultInDatabase' method from searchService"() {
         given:
-        def searchResults = new SearchResult()
+        LocalDateTime dateTime = LocalDateTime.now()
+        def searchResults = new SearchResult(null, FIRST_TEST_TITLE_VALUE, FIRST_TEST_LINK_VALUE, dateTime)
 
         when:
         searchService.saveResultInDatabase(searchResults)
 
         then:
-        1 * searchRepository.save(_)
+        1 * searchRepository.save(searchResults)
     }
 
     def "GetResultFromDatabase"() {
@@ -61,10 +69,6 @@ class SearchServiceImplTest extends Specification {
 
     def "GetAllResultsFromDatabase"() {
     }
-
-    def "DeleteByIdFromDatabase"() {
-    }
-
 
     SearchResultsDto prepareFirstExampleSearchResults() {
         SearchResultsDto searchResultsDto = SearchResultsDto.builder()

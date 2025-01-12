@@ -1,6 +1,7 @@
 package com.search.service.repository;
 
 import com.search.service.entity.SearchResult;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * for the {@link SearchResult} entity.
  */
 @Repository
-public interface SearchRepository extends CrudRepository<SearchResult, Long> {
+public interface SearchRepository extends JpaRepository<SearchResult, Long> {
 
     List<SearchResult> findTop50ByOrderByIdDesc();
 }

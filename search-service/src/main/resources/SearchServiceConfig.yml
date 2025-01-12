@@ -10,6 +10,7 @@ api:
 
 ## MONGO DB DATABASE ##
 MONGODB_URI: mongodb://host.docker.internal:27017/search-serv
+#MONGODB_URI: mongodb://localhost:27017/search-serv
 
 ## PostgreSQL DATABASE ##
 #DB_URL: jdbc:postgresql://localhost:5432/searchserv
@@ -19,8 +20,8 @@ MONGODB_URI: mongodb://host.docker.internal:27017/search-serv
 #DRIVER_CLASS_NAME: org.postgresql.Driver
 
 ## SQL SERVER DATABASE ##
-#DB_URL: jdbc:sqlserver://localhost:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true
-DB_URL: jdbc:sqlserver://host.docker.internal:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true
-DB_USERNAME: Norpix
-DB_PASSWORD: sa123
+DB_URL: jdbc:sqlserver://localhost:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true;DB_CLOSE_DELAY=-1
+#DB_URL: jdbc:sqlserver://host.docker.internal:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true
+DB_USERNAME: defaultUser
+DB_PASSWORD: pass123
 DRIVER_CLASS_NAME: com.microsoft.sqlserver.jdbc.SQLServerDriver
