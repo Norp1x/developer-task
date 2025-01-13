@@ -26,7 +26,7 @@ class SearchServiceImplJpaTest {
     SearchRepository searchRepository;
 
     @Test
-    void testJpaSplice() {
+    void testJpaSlice() {
 
         //given
         LocalDateTime dateTime = LocalDateTime.now();

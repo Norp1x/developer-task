@@ -1,0 +1,6 @@
+## SQL SERVER DATABASE ##
+DB_URL: jdbc:sqlserver://localhost:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true;DB_CLOSE_DELAY=-1
+#DB_URL: jdbc:sqlserver://host.docker.internal:1433;databaseName=search-serv;encrypt=true;trustServerCertificate=true
+DB_USERNAME: defaultUser
+DB_PASSWORD: pass123
+DRIVER_CLASS_NAME: com.microsoft.sqlserver.jdbc.SQLServerDriver

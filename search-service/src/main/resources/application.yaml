@@ -2,12 +2,12 @@ spring:
   application:
     name: 'search-service'
   config:
-    import: classpath:SearchServiceConfig.yml
+    import: classpath:SearchServiceConfig.yml, classpath:db/config/SqlServerConfig.yml, classpath:db/config/MongoDbConfig.yml
 
   h2:
     console:
       enabled: true
-      path: ${H2_PATH:/h2}
+      path: ${H2_PATH}
       settings:
         web-allow-others: true
 
@@ -34,6 +34,7 @@ spring:
         dialect: org.hibernate.dialect.SQLServerDialect
     hibernate:
       ddl-auto: update
+    database: sql_server
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
