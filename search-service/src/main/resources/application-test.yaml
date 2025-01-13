@@ -2,7 +2,7 @@ spring:
   application:
     name: 'search-service'
   config:
-    import: classpath:db/config/H2Config.yml
+    import: classpath:db/config/H2Config.yaml
 
   datasource:
     url: ${DB_URL}

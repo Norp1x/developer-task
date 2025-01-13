@@ -2,7 +2,7 @@ spring:
   application:
     name: 'search-service'
   config:
-    import: classpath:SearchServiceConfig.yml, classpath:db/config/SqlServerConfig.yml, classpath:db/config/MongoDbConfig.yml
+    import: classpath:SearchServiceConfig.yaml, classpath:db/config/SqlServerConfig.yaml, classpath:db/config/MongoDbConfig.yaml
 
   h2:
     console:
