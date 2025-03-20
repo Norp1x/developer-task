@@ -1,0 +1,6 @@
+## PostgreSQL DATABASE ##
+#DB_URL: jdbc:postgresql://localhost:5432/searchserv
+DB_URL: jdbc:postgresql://host.docker.internal:5432/searchserv
+DB_USERNAME: postgres
+DB_PASSWORD: postgres
+DRIVER_CLASS_NAME: org.postgresql.Driver

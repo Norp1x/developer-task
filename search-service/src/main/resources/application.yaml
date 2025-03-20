@@ -1,0 +1,85 @@
+spring:
+  application:
+    name: 'search-service'
+  config:
+    import: classpath:SearchServiceConfig.yaml, classpath:db/config/SqlServerConfig.yaml, classpath:db/config/MongoDbConfig.yaml
+
+  h2:
+    console:
+      enabled: true
+      path: ${H2_PATH}
+      settings:
+        web-allow-others: true
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DRIVER_CLASS_NAME}
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+  liquibase:
+    enabled: true
+    change-log: db/changelog/changelog-master.yaml
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: update
+    database: sql_server
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    consumer:
+      group-id: ${KAFKA_GROUP_ID:search-service}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      retries: 3
+      batch-size: 16384
+    properties:
+      schema.registry.url: http://localhost:8080
+
+server:
+  port: ${PORT_NUMBER:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health, info"
+  health:
+    db:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+logging:
+  level:
+    org.hibernate: WARN
+    com.microsoft.sqlserver: WARN
+    org.flywaydb.core: WARN
+    liquibase: WARN
+    kafka: ERROR
+    sql: ERROR

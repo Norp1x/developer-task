@@ -1,0 +1,3 @@
+## MONGO DB DATABASE ##
+MONGODB_URI: mongodb://host.docker.internal:27017/search-serv
+#MONGODB_URI: mongodb://localhost:27017/search-serv

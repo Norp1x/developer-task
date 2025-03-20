@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1734885232836-1
+      author: Norpi
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      runOnChange: true
+      changes:
+        - dropColumn:
+            columnName: time
+            tableName: search_results
+

@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: 'search-service'
+  config:
+    import: classpath:db/config/H2Config.yaml
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DRIVER_CLASS_NAME}
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    database: h2
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.hibernate: WARN
+    sql: ERROR

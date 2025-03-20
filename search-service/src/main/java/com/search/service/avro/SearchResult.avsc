@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "SearchResultAvro",
+  "namespace": "com.search.service.avro",
+  "fields": [
+    {"name": "idNumber", "type": "int"},
+    {"name": "title", "type": "string"},
+    {"name": "link", "type": "string"},
+    {"name": "dateTime", "type": "string"}
+  ]
+}

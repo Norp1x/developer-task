@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1734884877880-1
+      author: Norpix
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      runOnChange: true
+      changes:
+        - renameColumn:
+            oldColumnName: date
+            newColumnName: date_time
+            tableName: search_results
+        - modifyDataType:
+            columnName: date_time
+            newDataType: datetime2
+            tableName: search_results
+
+
